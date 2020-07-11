@@ -1,8 +1,16 @@
-#load activity labels
+#load library
 
 library(data.table)
 library(dplyr)
 library(tidyr)
+
+#download data
+
+url<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(url,file.path="data.zip")
+unzip(zipfile="data.zip")
+
+# load labels
 
 activelabels<-read.table("UCI HAR Dataset/activity_labels.txt")
 activelabels<-tibble::as_tibble(activelabels)
@@ -45,7 +53,7 @@ alltrain<-bind_cols(strain,ytrain,xtrain)
 
 #tidy data
 
-alltrain<- gather(alltrain,"feature","value",-activities, -subject)
+#alltrain<- gather(alltrain,"feature","value",-activities, -subject)
 alltrain<- mutate(alltrain, "type"="train")
 
 #load test
@@ -79,7 +87,7 @@ alltest<-bind_cols(stest,ytest,xtest)
 
 #tidy data
 
-alltest<- gather(alltest,"feature","value",-activities, -subject)
+#alltest<- gather(alltest,"feature","value",-activities, -subject)
 alltest<- mutate(alltest, "type"="test")
 
 #combine two data frames
