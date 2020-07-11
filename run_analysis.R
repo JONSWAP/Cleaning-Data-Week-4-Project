@@ -7,7 +7,7 @@ library(tidyr)
 #download data
 
 url<-"https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
-download.file(url,file.path="data.zip")
+download.file(url,destfile="data.zip")
 unzip(zipfile="data.zip")
 
 # load labels
@@ -21,6 +21,7 @@ names(activelabels)=c("label","activities")
 feature<-read.table("UCI HAR Dataset/features.txt")
 feature<-tibble::as_tibble(feature)
 featurename<-pull(feature,2)
+featurename<-gsub('()','',featurename)
 
 #load train
 
